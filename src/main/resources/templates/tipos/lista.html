@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{plantilla/base :: estructura(~{::title}, ~{::main})}">
+    <head><title th:text="#{tipo.titulo}">Tipos de servicio</title></head>
+    <body>
+        <main class="container py-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div>
+                    <h2 class="vet-titulo mb-0">[[#{tipo.titulo}]]</h2>
+                    <p class="text-muted mb-0">[[#{tipo.subtitulo}]]</p>
+                </div>
+                <a class="btn btn-vet" th:href="@{/tipos/nuevo}"><i class="fa-solid fa-plus me-1"></i>[[#{accion.nuevo}]]</a>
+            </div>
+            <div class="card vet-card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="vet-thead">
+                            <tr>
+                                <th>#</th>
+                                <th>[[#{tipo.nombre}]]</th>
+                                <th>[[#{tipo.descripcion}]]</th>
+                                <th class="text-center">[[#{tipo.cantidad}]]</th>
+                                <th class="text-end">[[#{tabla.acciones}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="t : ${tiposRegistrados}">
+                                <td th:text="${t.id}">1</td>
+                                <td class="fw-semibold" th:text="${t.nombre}">Nombre</td>
+                                <td th:text="${t.descripcion}">Descripción</td>
+                                <td class="text-center"><span class="badge rounded-pill vet-badge" th:text="${t.cantidadServicios}">0</span></td>
+                                <td class="text-end text-nowrap">
+                                    <a class="btn btn-sm btn-outline-primary" th:href="@{/tipos/editar/{id}(id=${t.id})}">
+                                        <i class="fa-solid fa-pen"></i><span class="d-none d-md-inline ms-1">[[#{accion.editar}]]</span></a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            data-bs-toggle="modal" data-bs-target="#modalEliminar"
+                                            th:data-id="${t.id}" th:data-nombre="${t.nombre}">
+                                        <i class="fa-solid fa-trash"></i><span class="d-none d-md-inline ms-1">[[#{accion.eliminar}]]</span></button>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(tiposRegistrados)}">
+                                <td colspan="5" class="text-center text-muted py-4">[[#{tabla.vacia}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:replace="~{plantilla/componentes :: confirmarEliminacion(@{/tipos/eliminar})}"></div>
+        </main>
+    </body>
+</html>

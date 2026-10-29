@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{plantilla/base :: estructura(~{::title}, ~{::main})}">
+    <head><title th:text="#{servicio.titulo}">Servicios</title></head>
+    <body>
+        <main class="container py-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <div>
+                    <h2 class="vet-titulo mb-0">[[#{servicio.titulo}]]</h2>
+                    <p class="text-muted mb-0">[[#{servicio.subtitulo}]]</p>
+                </div>
+                <a class="btn btn-vet" th:href="@{/servicios/nuevo}"><i class="fa-solid fa-plus me-1"></i>[[#{accion.nuevo}]]</a>
+            </div>
+            <div class="card vet-card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="vet-thead">
+                            <tr>
+                                <th>#</th>
+                                <th>[[#{servicio.nombre}]]</th>
+                                <th>[[#{servicio.tipo}]]</th>
+                                <th class="text-end">[[#{servicio.precio}]]</th>
+                                <th class="text-end">[[#{servicio.duracion}]]</th>
+                                <th class="text-end">[[#{tabla.acciones}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="s : ${serviciosOfrecidos}">
+                                <td th:text="${s.id}">1</td>
+                                <td class="fw-semibold" th:text="${s.nombre}">Nombre</td>
+                                <td><span class="badge vet-badge" th:text="${s.tipoServicio.nombre}">Tipo</span></td>
+                                <td class="text-end text-nowrap" th:text="'₡' + ${#numbers.formatDecimal(s.precio, 1, 'POINT', 2, 'COMMA')}">₡0,00</td>
+                                <td class="text-end text-nowrap">[[${s.duracionMinutos}]] [[#{unidad.minutos}]]</td>
+                                <td class="text-end text-nowrap">
+                                    <a class="btn btn-sm btn-outline-primary" th:href="@{/servicios/editar/{id}(id=${s.id})}">
+                                        <i class="fa-solid fa-pen"></i><span class="d-none d-md-inline ms-1">[[#{accion.editar}]]</span></a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            data-bs-toggle="modal" data-bs-target="#modalEliminar"
+                                            th:data-id="${s.id}" th:data-nombre="${s.nombre}">
+                                        <i class="fa-solid fa-trash"></i><span class="d-none d-md-inline ms-1">[[#{accion.eliminar}]]</span></button>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(serviciosOfrecidos)}">
+                                <td colspan="6" class="text-center text-muted py-4">[[#{tabla.vacia}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:replace="~{plantilla/componentes :: confirmarEliminacion(@{/servicios/eliminar})}"></div>
+        </main>
+    </body>
+</html>

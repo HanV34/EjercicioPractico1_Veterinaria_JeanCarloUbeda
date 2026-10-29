@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{plantilla/base :: estructura(~{::title}, ~{::main})}">
+    <head><title th:text="#{marca.nombre}">Clínica Veterinaria</title></head>
+    <body>
+        <main>
+            <!-- Portada -->
+            <section class="vet-hero text-white">
+                <div class="container py-5 text-center">
+                    <h2 class="display-5 fw-bold">[[#{inicio.bienvenida}]]</h2>
+                    <p class="lead mx-auto vet-hero-texto">[[#{inicio.presentacion}]]</p>
+                    <a class="btn btn-lg btn-acento me-2" th:href="@{/servicios}"><i class="fa-solid fa-stethoscope me-2"></i>[[#{inicio.verServicios}]]</a>
+                    <a class="btn btn-lg btn-outline-light" th:href="@{/citas}"><i class="fa-solid fa-calendar-check me-2"></i>[[#{inicio.verCitas}]]</a>
+                </div>
+            </section>
+
+            <!-- Campaña del mes -->
+            <section class="container my-5">
+                <div class="vet-campana p-4 p-md-5">
+                    <div class="row align-items-center g-4">
+                        <div class="col-md-8">
+                            <span class="badge vet-etiqueta mb-2"><i class="fa-solid fa-star me-1"></i>[[#{inicio.campana.etiqueta}]]</span>
+                            <h2 class="fw-bold">[[#{inicio.campana.titulo}]]</h2>
+                            <p class="fs-5">[[#{inicio.campana.detalle}]]</p>
+                            <p class="mb-1"><i class="fa-solid fa-syringe me-2"></i>[[#{inicio.campana.incluye}]]</p>
+                            <p class="mb-0 fw-semibold"><i class="fa-solid fa-hourglass-half me-2"></i>[[#{inicio.campana.cupo}]]</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="vet-descuento"><span>15 %</span><small>OFF</small></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Información de la clínica -->
+            <section class="container my-5">
+                <h2 class="vet-titulo text-center mb-4">[[#{inicio.info.titulo}]]</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card vet-card h-100"><div class="card-body">
+                            <h3 class="h5"><i class="fa-regular fa-clock me-2 vet-icono"></i>[[#{inicio.horario.titulo}]]</h3>
+                            <p class="mb-1">[[#{inicio.horario.semana}]]</p>
+                            <p class="mb-1">[[#{inicio.horario.sabado}]]</p>
+                            <p class="mb-0">[[#{inicio.horario.domingo}]]</p>
+                        </div></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card vet-card h-100"><div class="card-body">
+                            <h3 class="h5"><i class="fa-solid fa-location-dot me-2 vet-icono"></i>[[#{inicio.ubicacion.titulo}]]</h3>
+                            <p class="mb-1">[[#{inicio.ubicacion.linea1}]]</p>
+                            <p class="mb-0">[[#{inicio.ubicacion.linea2}]]</p>
+                        </div></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card vet-card h-100"><div class="card-body">
+                            <h3 class="h5"><i class="fa-solid fa-user-doctor me-2 vet-icono"></i>[[#{inicio.especialidades.titulo}]]</h3>
+                            <ul class="mb-0 ps-3">
+                                <li>[[#{inicio.especialidad.1}]]</li>
+                                <li>[[#{inicio.especialidad.2}]]</li>
+                                <li>[[#{inicio.especialidad.3}]]</li>
+                                <li>[[#{inicio.especialidad.4}]]</li>
+                            </ul>
+                        </div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instalaciones (iframe) -->
+            <section class="container my-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-md-5">
+                        <h2 class="vet-titulo">[[#{inicio.instalaciones.titulo}]]</h2>
+                        <p>[[#{inicio.instalaciones.descripcion}]]</p>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="ratio ratio-16x9 vet-marco">
+                            <iframe th:src="@{/media/instalaciones.html}" title="Instalaciones de la clínica" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Formulario de consultas (solo interfaz, sin base de datos) -->
+            <section id="consulta" class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card vet-card">
+                            <div class="card-header vet-thead">
+                                <h2 class="h4 mb-0"><i class="fa-solid fa-envelope-open-text me-2"></i>[[#{consulta.titulo}]]</h2>
+                                <small>[[#{consulta.subtitulo}]]</small>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/consultas/enviar}" th:object="${consulta}" method="post" novalidate="novalidate">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cNombre" class="form-label">[[#{consulta.nombre}]]</label>
+                                            <input type="text" id="cNombre" class="form-control" th:field="*{nombre}" th:errorclass="is-invalid"/>
+                                            <div class="invalid-feedback" th:errors="*{nombre}">Error</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cCorreo" class="form-label">[[#{consulta.correo}]]</label>
+                                            <input type="email" id="cCorreo" class="form-control" th:field="*{correo}" th:errorclass="is-invalid"/>
+                                            <div class="invalid-feedback" th:errors="*{correo}">Error</div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cMascota" class="form-label">[[#{consulta.mascota}]]</label>
+                                        <input type="text" id="cMascota" class="form-control" th:field="*{nombreMascota}" th:errorclass="is-invalid"/>
+                                        <div class="invalid-feedback" th:errors="*{nombreMascota}">Error</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cMensaje" class="form-label">[[#{consulta.mensaje}]]</label>
+                                        <textarea id="cMensaje" rows="4" class="form-control" th:field="*{mensaje}" th:errorclass="is-invalid"></textarea>
+                                        <div class="invalid-feedback" th:errors="*{mensaje}">Error</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-vet"><i class="fa-solid fa-paper-plane me-1"></i>[[#{consulta.enviar}]]</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{plantilla/base :: estructura(~{::title}, ~{::main})}">
+    <head><title th:text="#{cita.titulo}">Citas</title></head>
+    <body>
+        <main class="container py-4">
+            <h2 class="vet-titulo mb-0">[[#{cita.titulo}]]</h2>
+            <p class="text-muted">[[#{cita.subtitulo}]]</p>
+            <div class="card vet-card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="vet-thead">
+                            <tr>
+                                <th>[[#{cita.fecha}]]</th>
+                                <th>[[#{cita.mascota}]]</th>
+                                <th>[[#{cita.propietario}]]</th>
+                                <th>[[#{cita.servicio}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="c : ${citasProgramadas}">
+                                <td class="text-nowrap"><i class="fa-regular fa-calendar me-2 text-muted"></i><span th:text="${#temporals.format(c.fecha, 'dd/MM/yyyy')}">01/01/2026</span></td>
+                                <td class="fw-semibold"><i class="fa-solid fa-paw me-2 vet-icono"></i><span th:text="${c.nombreMascota}">Mascota</span></td>
+                                <td th:text="${c.nombrePropietario}">Propietario</td>
+                                <td><span class="badge vet-badge" th:text="${c.servicio.nombre}">Servicio</span></td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(citasProgramadas)}">
+                                <td colspan="4" class="text-center text-muted py-4">[[#{tabla.vacia}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

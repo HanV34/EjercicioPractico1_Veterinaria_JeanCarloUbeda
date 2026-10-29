@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+      th:fragment="estructura(titulo, contenido)">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title th:replace="${titulo}">Clínica Veterinaria</title>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <link th:href="@{/css/clinica.css}" rel="stylesheet"/>
+    </head>
+    <body>
+        <header th:replace="~{plantilla/componentes :: encabezado}"></header>
+        <nav th:replace="~{plantilla/componentes :: navegacion}"></nav>
+        <div th:replace="~{plantilla/componentes :: avisos}"></div>
+        <main th:replace="${contenido}">Contenido de cada página</main>
+        <footer th:replace="~{plantilla/componentes :: pie}"></footer>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/js/clinica.js}"></script>
+    </body>
+</html>

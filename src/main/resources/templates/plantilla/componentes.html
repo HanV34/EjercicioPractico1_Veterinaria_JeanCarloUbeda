@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+    <head><meta charset="UTF-8"/><title>Componentes</title></head>
+    <body>
+        <!-- Header: se define una sola vez y todas las páginas lo reutilizan -->
+        <header th:fragment="encabezado" class="vet-header text-center text-white py-3">
+            <div class="container">
+                <h1 class="h3 mb-0"><i class="fa-solid fa-paw me-2"></i>[[#{marca.nombre}]]</h1>
+                <p class="mb-0 small opacity-75">[[#{marca.lema}]]</p>
+            </div>
+        </header>
+
+        <!-- Navbar -->
+        <nav th:fragment="navegacion" class="navbar navbar-expand-md vet-navbar sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-semibold" th:href="@{/}"><i class="fa-solid fa-house-medical me-1"></i>[[#{nav.inicio}]]</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#menuPrincipal" aria-controls="menuPrincipal"
+                        aria-expanded="false" th:aria-label="#{nav.alternar}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tipos}"
+                               th:classappend="${seccionActiva == 'tipos'} ? 'active'">
+                                <i class="fa-solid fa-layer-group me-1"></i>[[#{nav.tipos}]]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/servicios}"
+                               th:classappend="${seccionActiva == 'servicios'} ? 'active'">
+                                <i class="fa-solid fa-stethoscope me-1"></i>[[#{nav.servicios}]]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/citas}"
+                               th:classappend="${seccionActiva == 'citas'} ? 'active'">
+                                <i class="fa-solid fa-calendar-check me-1"></i>[[#{nav.citas}]]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/#consulta}">
+                                <i class="fa-solid fa-envelope me-1"></i>[[#{nav.consultas}]]</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Avisos tipo toast (éxito o error) a partir de RedirectAttributes -->
+        <div th:fragment="avisos" class="toast-container position-fixed top-0 end-0 p-3 vet-toasts">
+            <div th:if="${mensajeExito != null}" class="toast align-items-center text-bg-success border-0"
+                 role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="fa-solid fa-circle-check me-2"></i><span th:text="#{${mensajeExito}}">Listo</span></div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" th:aria-label="#{accion.cerrar}"></button>
+                </div>
+            </div>
+            <div th:if="${mensajeError != null}" class="toast align-items-center text-bg-danger border-0"
+                 role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="fa-solid fa-triangle-exclamation me-2"></i><span th:text="#{${mensajeError}}">Error</span></div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" th:aria-label="#{accion.cerrar}"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer th:fragment="pie" class="vet-footer text-center text-white py-4 mt-5">
+            <div class="container">
+                <p class="mb-1"><i class="fa-solid fa-phone me-2"></i>[[#{pie.contacto}]]</p>
+                <p class="mb-1"><i class="fa-solid fa-truck-medical me-2"></i>[[#{pie.emergencias}]]</p>
+                <p class="mb-0 small opacity-75">[[#{pie.derechos}]]</p>
+            </div>
+        </footer>
+
+        <!-- Ventana modal de Bootstrap para confirmar eliminaciones (la reutilizan tipos y servicios) -->
+        <div th:fragment="confirmarEliminacion(urlAccion)" class="modal fade" id="modalEliminar"
+             tabindex="-1" aria-labelledby="tituloModalEliminar" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form th:action="${urlAccion}" method="post">
+                        <div class="modal-header">
+                            <h2 class="modal-title fs-5" id="tituloModalEliminar">
+                                <i class="fa-solid fa-triangle-exclamation text-danger me-2"></i>[[#{modal.titulo}]]
+                            </h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" th:aria-label="#{accion.cerrar}"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="idPorEliminar"/>
+                            <p class="mb-1">[[#{modal.pregunta}]] <strong id="nombrePorEliminar"></strong>?</p>
+                            <p class="text-muted small mb-0">[[#{modal.advertencia}]]</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">[[#{accion.cancelar}]]</button>
+                            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash me-1"></i>[[#{accion.eliminar}]]</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

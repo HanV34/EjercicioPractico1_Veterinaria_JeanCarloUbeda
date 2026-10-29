@@ -1,0 +1,42 @@
+:root {
+    --vet-profundo: #124559;
+    --vet-principal: #1f7a8c;
+    --vet-claro: #e6f3f1;
+    --vet-acento: #f4a259;
+    --vet-acento-oscuro: #e0833a;
+    --vet-texto: #1d3640;
+}
+body { background: #f6fbfa; color: var(--vet-texto); }
+.vet-header { background: linear-gradient(135deg, var(--vet-profundo), var(--vet-principal)); }
+.vet-navbar { background: #ffffff; box-shadow: 0 2px 8px rgba(18, 69, 89, .12); }
+.vet-navbar .nav-link { color: var(--vet-profundo); font-weight: 500; border-radius: .5rem; margin: 0 .15rem; }
+.vet-navbar .nav-link:hover { background: var(--vet-claro); }
+.vet-navbar .nav-link.active { background: var(--vet-principal); color: #fff; }
+.vet-navbar .navbar-brand { color: var(--vet-profundo); }
+.vet-footer { background: var(--vet-profundo); }
+.vet-toasts { z-index: 1090; }
+
+.vet-titulo { color: var(--vet-profundo); font-weight: 700; }
+.vet-icono { color: var(--vet-principal); }
+.vet-card { border: 0; border-radius: 1rem; box-shadow: 0 .25rem 1rem rgba(18, 69, 89, .10); overflow: hidden; }
+.vet-thead, .vet-thead th { background: var(--vet-principal); color: #fff; }
+.vet-badge { background: var(--vet-claro); color: var(--vet-profundo); font-weight: 600; }
+
+.btn-vet { background: var(--vet-principal); border-color: var(--vet-principal); color: #fff; }
+.btn-vet:hover { background: var(--vet-profundo); border-color: var(--vet-profundo); color: #fff; }
+.btn-acento { background: var(--vet-acento); border-color: var(--vet-acento); color: #3a2208; font-weight: 600; }
+.btn-acento:hover { background: var(--vet-acento-oscuro); border-color: var(--vet-acento-oscuro); color: #fff; }
+
+.vet-hero { background: linear-gradient(135deg, rgba(18, 69, 89, .95), rgba(31, 122, 140, .9)); }
+.vet-hero-texto { max-width: 42rem; }
+
+.vet-campana { background: linear-gradient(120deg, #fff4e6, #ffe3c2); border-radius: 1.5rem;
+    border: 2px dashed var(--vet-acento); box-shadow: 0 .5rem 1.5rem rgba(244, 162, 89, .25); }
+.vet-etiqueta { background: var(--vet-acento); color: #3a2208; }
+.vet-descuento { width: 150px; height: 150px; margin: 0 auto; border-radius: 50%;
+    background: var(--vet-acento); color: #3a2208; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; font-weight: 800; box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15); }
+.vet-descuento span { font-size: 2.4rem; line-height: 1; }
+
+.vet-marco { border-radius: 1rem; overflow: hidden; box-shadow: 0 .25rem 1rem rgba(18, 69, 89, .2); }
+.table > :not(caption) > * > * { padding: .85rem .9rem; }
