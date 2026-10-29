@@ -1,4 +1,4 @@
-# Clínica Veterinaria Huellitas
+# Clínica Veterinaria Kratos
 
 Aplicación web (Spring Boot, JPA, Thymeleaf, MySQL) para gestionar tipos de servicio y servicios veterinarios, consultar citas y enviar consultas.
 
